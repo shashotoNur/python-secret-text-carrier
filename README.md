@@ -10,14 +10,11 @@ Make sure to have `cryptography` installed,
 pip install cryptography
 ```
 
-
 ### Sample
 
 There is already a jpg file with an encrypted data.
 
-To read it, open up your terminal and run the main python file.
-
-`python main.py`
+To read it, open up your terminal and run the main python file,  `python main.py`
 
 Input the password: `test1234`
 
@@ -27,12 +24,12 @@ Input your choice to read: `2`
 
 Upon entering all of the inputs correctly, the program will show you the message hidden in the file.
 
-## How it works
+### How it works
 
-While hiding, the program takes a message and encrypts it against a password.
-
-The file specified by the user is appended by the encrypted string.
+While hiding, the program takes a message and encrypts it against a password. The file specified by the user is appended by the encrypted string.
 
 While reading, the program takes the password and the path to the carrier file. It reads the file and gets to the end of the file data (specified by hex, FFD9) and extracts the data after it. This is the encrypted string. It is then decrypted against the password.
+
+When you reset a file, All the data after `FFD9` is erased. So the file is resetted to its initial condition.
 
 All the cryptographic operations are handled by the `cryptography` library.

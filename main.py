@@ -49,7 +49,7 @@ def main() :
     file_path = input("JPG file path: ")
 
     try:
-        choice = int(input("Choices:\n\t1. Hide\n\t2. Read\nEnter your choice: "))
+        choice = int(input("Choices:\n\t1. Hide\n\t2. Read\n\t3. Reset\nEnter your choice: "))
         if(choice == 1):
             message = input("Message: ")
             encrypted_msg = password_encrypt(message.encode(), password)
@@ -67,9 +67,9 @@ def main() :
                 with open(file_path, 'rb') as f:
                     content = f.read()
                     """JPG files end with Hex code FFD9"""
-                    offset = content.index(bytes.fromhex('FFD9'))
+                    offset = content.index(bytes.fromhex('FFD9')) + 2
 
-                    f.seek(offset + 2)
+                    f.seek(offset)
                     encrypted_bytes = f.read()
                     decrypted_msg = password_decrypt(encrypted_bytes, password)
 
@@ -78,12 +78,23 @@ def main() :
             except:
                 print("File not found!")
         
+        elif(choice == 3):
+            f = open(file_path, "rb")
+            content = f.read()
+            offset = content.index(bytes.fromhex('FFD9')) + 2
+            f.close()
+
+            f = open(file_path, "a")
+            f.truncate(offset)
+            f.close()
+
         else:
-            print("Choose between 1 or 2")
+            print("Choose between 1, 2 or 3")
 
     except:
         print("Not an integer!")
 
     print("\n\nProgram terminated...")
+
 
 main()
